@@ -1,0 +1,33 @@
+.profile-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card {
+  padding: 30px;
+  width: 500px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+}
+
+.profile-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.profile-field {
+  margin-bottom: 15px;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile-buttons button {
+  width: 150px;
+}

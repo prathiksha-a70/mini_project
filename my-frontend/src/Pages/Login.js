@@ -4,12 +4,12 @@ import {useNavigate}from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
-    const[user_name,setUser]=useState("");
+    const[username,setUser]=useState("");
     const[password,setPassword]=useState("");
 
     const navigate=useNavigate();
     useEffect(() => {
-        const storedUserName = localStorage.getItem("user_name");
+        const storedUserName = localStorage.getItem("username");
         if (storedUserName) {
           setUser(storedUserName);
         }
@@ -17,11 +17,11 @@ const Login = () => {
 
       const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', { user_name, password });
+            const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
     
             console.log("API Response:", response.data); // Debugging log
     
-            const { user_type, user_id, user_name: returnedUserName } = response.data || {}; 
+            const { user_type, user_id, username: returnedUserName } = response.data || {}; 
     
             if (!user_id) {
                 console.error("user_id is undefined!");
@@ -29,9 +29,9 @@ const Login = () => {
                 return;
             }
     
-            // Store user_id and user_name in localStorage
+            // Store user_id and username in localStorage
             localStorage.setItem("user_id", user_id);
-            localStorage.setItem("user_name", returnedUserName || user_name);
+            localStorage.setItem("username", returnedUserName || username);
             localStorage.setItem("user_type", user_type);
     
             console.log('User Type:', user_type);
@@ -40,11 +40,11 @@ const Login = () => {
     
             // Redirect based on role
             if (user_type === "admin") {
-                navigate('/admin/AdminDash');
-            } else if (user_type === 'user') {
-                navigate('/User/Home');
-            } else if (user_type === "employee") {
-                navigate('/employee/EmployDash');
+                navigate('/Admin/AdminDashboard');
+            } else if (user_type === 'student') {
+                navigate('/Student/StudentDashboard');
+            } else if (user_type === "teacher") {
+                navigate('/teacher/teacherdashboard');
             } else {
                 alert('Role not recognized');
             }
@@ -75,7 +75,7 @@ const Login = () => {
 
         <TextField
         label="User Name"
-        type="user_name"
+        type="username"
         onChange={(e) => setUser(e.target.value)}
         fullWidth
         margin="normal"
